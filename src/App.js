@@ -1,24 +1,36 @@
 import logo from './logo.svg';
 import './App.css';
+import Wrapper from "./wrapper/wrapper"
+import Nav from "./nav/nav"
+import Sidebar from './sidebar/sidebar'
+import Dashboard from "./dashboard/dashboard"
+import { BrowserRouter, Route, Switch, Link, Router } from 'react-router-dom'
+import CountryDetails from "./countrydetail/countrydetail"
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/">
+
+          <Wrapper>
+            <Sidebar></Sidebar>
+            <div id="content-wrapper" className="d-flex flex-column">
+              <div id="content">
+                <Nav></Nav>
+                <Route path="/dashboard/:params" exact component={CountryDetails}></Route>
+                <Route exact path="/dashboard">
+                  <Dashboard></Dashboard>
+                </Route>
+                {/* <Route path="/dashboard" exact component={Dashboard} /> */}
+              </div>
+            </div>
+          </Wrapper>
+        </Route>
+      </Switch>
+    </BrowserRouter>
+
   );
 }
 
